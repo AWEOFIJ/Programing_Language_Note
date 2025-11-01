@@ -3,7 +3,7 @@
 `Note` `2025.02.28`
 
  - Start: [time=Wed, May 28, 2025 1:50 PM]
- - Last Update: [time=Fri, Oct 10, 2025 1:13 PM]
+ - Last Update: [time=Sat, Nov 1, 2025 10:32 PM]
 
 
 ### 開發環境與工具
@@ -56,7 +56,7 @@ Java 內建 8 種基本型別，直接儲存值（copy by value）。
 | `char`    | 2      | `'A'`  | Unicode (0 ~ 65535) |
 | `boolean` | 1      | `true` | `true` / `false` |
 
-📌 注意：
+**注意**：
 - `long` 常數要加 `L`，例如 `long num = 123456789L;`
 - `float` 常數要加 `f`，例如 `float pi = 3.14f;`
 - `char` 使用單引號 `'A'`，字串則用雙引號 `"Hello"`
@@ -88,7 +88,7 @@ System.out.println(x); // 輸出 "Hi!"
 
 ```java
 final double PI = 3.1415926;
-// PI = 3.15; // ❌ 編譯錯誤，因為 final 不能再被修改
+// PI = 3.15; // X 編譯錯誤，因為 final 不能再被修改
 ```
 
 
@@ -98,8 +98,59 @@ final double PI = 3.1415926;
 - **final**：宣告常數，值不可變
 
 
+## 比較表
+
+| 概念名稱 (中文) | 英文名稱 (English) | 核心定義與關係 | 範例程式碼 (Code Snippet) |
+| :--- | :--- | :--- | :--- |
+| **類別** | **Class** | **藍圖 (Blueprint) 或模板。** 它定義了物件的屬性與行為。 | `public class Car { }` |
+| **物件** | **Object** | **實體 (Entity) 或實例 (Instance)。** 它是根據類別所建立出來的具體實體。 | `Car myCar = new Car();` |
+| **實例** | **Instance** | 物件的同義詞，一個物件就是一個類別的實例。 | `myCar` |
+| **實例化** | **Instantiation** | 建立物件的過程，使用 `new` 關鍵字。 | `new Car()` |
+| **屬性** | **Attribute / Field** | 類別中的資料成員，描述物件的**狀態**。 | `public String color;` |
+| **方法** | **Method** | 類別中的函數成員，描述物件的**行為**。 | `public void startEngine() { ... }` |
+| **建構子** | **Constructor** | 在物件被實例化時自動呼叫，用於**初始化屬性**。 | `public Car(String c) { this.color = c; }` |
+| **`this` 關鍵字** | **`this` keyword** | 代表**當前物件實例**本身。 | `this.color = color;` |
+| **封裝** | **Encapsulation** | **物件導向三大特性之一。** 將資料 (屬性) 和方法 (行為) 綑綁在一起，並使用 `private` 隱藏內部細節，僅透過 `public` 方法 (Getter/Setter) 供外部安全存取。 | `private String name;` <br> `public String getName() { return name; }` |
+| **繼承** | **Inheritance** | **物件導向三大特性之一。** 允許子類別繼承父類別的屬性和方法，實現程式碼重用。 | `public class SportsCar extends Car { }` |
+| **多型** | **Polymorphism** | **物件導向三大特性之一。** 「一個介面，多種行為」。指一個物件可以呈現多種型態，並根據實際物件類型執行對應的方法。主要體現為：<br>1. **覆寫 (Overriding)：** 子類別重新實作父類別的方法。<br>2. **多載 (Overloading)：** 同一名稱的方法，但參數列表不同。 | `Car c = new SportsCar();` <br> `c.startEngine();` (執行 SportsCar 的方法) |
+| **靜態成員** | **Static Member** | 屬於**類別本身**，不屬於任何特定物件實例，所有實例共享。 | `public static int wheelCount = 4;` |
+| **抽象類別** | **Abstract Class** | 不能被直接實例化，用作其他類別繼承的基礎模板。 | `public abstract class Vehicle { ... }` |
+| **介面** | **Interface** | 一種純粹的**規格**或**契約**，只包含方法簽章 (沒有實作細節)。 | `public interface Drivable { void drive(); }` |
+
+- **補充說明**：封裝 (Encapsulation)
+封裝的核心目的是保護資料的完整性和隱密性，並提高程式的穩定性。
+
+  **實踐方式**： 通常將類別的資料成員 (Fields) 宣告為 private，讓外部無法直接存取和修改。
+
+  **介面提供**： 接著提供 public 的 Getter (讀取資料) 和 Setter (寫入資料) 方法，作為外部與內部資料溝通的唯一管道。這樣可以在 Setter 方法中加入邏輯檢查（例如：年齡不能為負數），以控制資料的有效性。
+
+- **補充說明**：**多型** (Polymorphism)
+多型的核心概念是讓程式碼更具彈性和擴展性。
+
+
+### Overriding
+
+```java=
+// 父類別 Car
+public void run() { System.out.println("Car is running."); } 
+
+// 子類別 SportsCar 覆寫 run 方法
+@Override
+public void run() { System.out.println("SportsCar is racing."); }
+```
+
+### Overloading
+
+```Java=
+public int sum(int a, int b) { return a + b; }
+public double sum(double a, double b) { return a + b; } // 參數型態不同
+public int sum(int a, int b, int c) { return a + b + c; } // 參數數量不同
+```
+
+
 ## 控制流程
 控制程式執行的邏輯分支與迴圈。
+
 
 ### 語法基礎
 
@@ -156,15 +207,15 @@ while (j < 5) {
 ```
 
 
-### 陣列與集合
-#### 陣列（Array）
+## 陣列與集合
+### 陣列（Array）
 固定長度，元素型別一致。
 ```java
 int[] arr = {10, 20, 30};
 System.out.println(arr[1]); // 20
 ```
 
-#### ArrayList
+### ArrayList
 可動態增減元素。
 ```java
 import java.util.ArrayList;
@@ -175,7 +226,7 @@ list.add("Python");
 System.out.println(list.get(0)); // Java
 ```
 
-#### HashMap
+### HashMap
 鍵值對（Key-Value）結構。
 ```java
 import java.util.HashMap;
@@ -367,7 +418,7 @@ public class Main {
 
 | 特性 | interface | abstract class |
 |------|-----------|----------------|
-| 多重繼承 | ✅ 可實作多個 | ❌ 只能繼承一個 |
+| 多重繼承 | **V** 可實作多個 | **X** 只能繼承一個 |
 | 成員變數 | 預設 `public static final` | 可有一般屬性 |
 | 方法 | 抽象方法（Java 8+ 可有 `default`） | 可有抽象與具體方法 |
 | 使用場景 | 定義規範（行為契約） | 提供部分共用邏輯 |
@@ -843,14 +894,127 @@ Output:
 - 日誌紀錄：`System.out` vs `Logger`
 
 
+在 Java 中，**命令列輸入（Command Line Input）** 主要有三種常見方式，依需求不同可以選擇：  
+
+
+#### 使用 `args[]` 接收命令列參數
+這是最基本的方式，直接透過 `main(String[] args)` 取得執行程式時輸入的參數。  
+
+```java
+public class Echo {
+    public static void main(String[] args) {
+        for (String s : args) {
+            System.out.println("輸入參數: " + s);
+        }
+    }
+}
+```
+
+執行方式（假設檔名為 `Echo.java`）：  
+```bash
+javac Echo.java
+java Echo Hello 123 World
+```
+
+輸出：  
+```
+輸入參數: Hello
+輸入參數: 123
+輸入參數: World
+```
+
+- 適合用於「一次性」傳入參數，例如檔案名稱、設定值。
+
+
+#### 使用 `Scanner` 讀取使用者輸入
+`Scanner` 是最常用的互動式輸入工具，能讀取字串、整數、浮點數等。  
+
+```java
+import java.util.Scanner;
+
+public class InputExample {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("請輸入名字: ");
+        String name = sc.nextLine();
+
+        System.out.print("請輸入年齡: ");
+        int age = sc.nextInt();
+
+        System.out.println("Hello " + name + ", 你今年 " + age + " 歲。");
+    }
+}
+```
+
+執行後會等待使用者輸入：  
+```
+請輸入名字: Hsieh
+請輸入年齡: 25
+Hello Hsieh, 你今年 25 歲。
+```
+
+- 適合互動式程式，例如問答、表單輸入。
+
+
+#### 使用 `BufferedReader`（較舊但效能佳）
+比 `Scanner` 更早出現，適合需要快速讀取大量文字的情境。  
+
+```java
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+
+public class BufferedInput {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        System.out.print("請輸入一句話: ");
+        String line = br.readLine();
+
+        System.out.println("你輸入的是: " + line);
+    }
+}
+```
+
+- 適合處理大量文字輸入（例如讀檔、批次輸入）。
+
+
+#### 使用 `Console`（進階）
+`System.console()` 可讀取輸入，並支援「隱藏輸入」（例如密碼）。  
+- 注意：在 IDE（如 IntelliJ、Eclipse）中通常無法使用，需在終端機執行。  
+
+```java
+public class ConsoleInput {
+    public static void main(String[] args) {
+        java.io.Console console = System.console();
+        if (console != null) {
+            String user = console.readLine("請輸入使用者名稱: ");
+            char[] pwd = console.readPassword("請輸入密碼: ");
+            System.out.println("使用者: " + user);
+        } else {
+            System.out.println("Console 不可用，請在終端機執行。");
+        }
+    }
+}
+```
+
+
+#### 小結
+- **`args[]`** → 適合一次性參數（如檔案路徑）。  
+- **`Scanner`** → 最常用，適合互動式輸入。  
+- **`BufferedReader`** → 效能佳，適合大量文字。  
+- **`Console`** → 支援隱藏輸入，適合密碼輸入。  
+
+
 ### 專案結構與模組化
 
 - `package` 使用與命名慣例
 - 多檔案專案架構
-- Maven/Gradle 基礎（可選）
+- Maven/Gradle 基礎
 
 
-### 延伸應用（可選模組）
+### 延伸應用（模組）
 
 - Java GUI：Swing / JavaFX
 - Java Web：Servlet / Spring Boot
